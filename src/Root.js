@@ -7,14 +7,19 @@ import NavigationService from 'src/navigationService';
 import theme from './theme';
 
 import Auth from 'screens/Auth';
+import Home from 'screens/Home';
 
-const navTypes = {
+export const navTypes = {
   AUTH: 'auth',
+  HOME: 'home',
 };
 
 const ScreenStack = createStackNavigator({
   [navTypes.AUTH]: {
     screen: Auth,
+  },
+  [navTypes.HOME]: {
+    screen: Home,
   },
 }, {
   initialRouteName: navTypes.INDEX,

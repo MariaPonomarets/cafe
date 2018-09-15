@@ -11,7 +11,7 @@ const isLength = (str, ln) => {
 export default ({ email, password }) => {
   const errors = {};
 
-  if (!isLength(email)) {
+  if (!email) {
     errors.email = 'Email is required.';
   }
 
@@ -23,8 +23,8 @@ export default ({ email, password }) => {
     errors.password = 'Password is required.';
   }
 
-  if (password && !isLength(password, 6)) {
-    errors.password = 'Password must contain minimum 6 symbols.';
+  if (password && !isLength(password, 4)) {
+    errors.password = 'Password must contain minimum 4 symbols.';
   }
 
   return Object.keys(errors).length ? errors : null;

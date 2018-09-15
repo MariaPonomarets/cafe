@@ -1,5 +1,8 @@
 import React, { createRef, Component } from 'react';
+import { Keyboard } from 'react-native';
 import validation from 'utils/form-validation';
+import NavigationService from 'src/navigationService';
+import { navTypes } from 'src/Root';
 
 class FormContainer extends Component {
   constructor(props) {
@@ -16,15 +19,20 @@ class FormContainer extends Component {
     this[stateProperty] = input
   };
 
+  emailRef = (input) => this.setRef('emailRef', input);
   passwordRef = (input) => this.setRef('passwordRef', input);
   submitButtonRef = (input) => this.setRef('submitButtonRef', input);
 
 
   changeField = (fieldName, fieldValue) => {
+    console.log(fieldName, fieldValue);
     const newState = {
       ...this.state,
     };
-    newState.errors[fieldName] = null;
+
+    if (newState.errors) {
+      newState.errors[fieldName] = null;
+    }
     newState[fieldName] = fieldValue;
     this.setState(newState);
   };
@@ -42,6 +50,7 @@ class FormContainer extends Component {
     if (errors) {
       this.setState({ errors });
     } else {
+      NavigationService.navigateWithReset(navTypes.HOME);
       Keyboard.dismiss();
       // TODO navigate
     }
@@ -50,9 +59,11 @@ class FormContainer extends Component {
   render() {
     const { errors } = this.state;
     const emailProps = {
+      innerRef: this.emailRef,
       placeholder: 'Email',
       keyboardType: 'email-address',
       autoCapitalize: 'none',
+      returnKeyType: 'next',
       onChangeText: this.handleChangeEmail,
       onSubmitEditing: this.handleSubmitEditingEmail,
       error: errors && errors.email,
@@ -61,6 +72,7 @@ class FormContainer extends Component {
       innerRef: this.passwordRef,
       secureTextEntry: true,
       placeholder: 'Password',
+      returnKeyType: 'go',
       onChangeText: this.handleChangePassword,
       onSubmitEditing: this.handleSubmitEditingPassword,
       error: errors && errors.password
