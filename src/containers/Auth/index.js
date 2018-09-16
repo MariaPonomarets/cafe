@@ -51,8 +51,8 @@ class FormContainer extends Component {
       this.setState({ errors });
     } else {
       NavigationService.navigateWithReset(navTypes.HOME);
+
       Keyboard.dismiss();
-      // TODO navigate
     }
   };
 
