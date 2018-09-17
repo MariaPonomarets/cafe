@@ -15,7 +15,7 @@ const Text = styled.Text`
 `;
 
 const Button = ({ children, ...rest }) => (
-  <ButtonComponent {...rest} style={{justifyContent: 'center', alignItems: 'center'}}>
+  <ButtonComponent {...rest}>
     <Text>
       {children}
     </Text>
